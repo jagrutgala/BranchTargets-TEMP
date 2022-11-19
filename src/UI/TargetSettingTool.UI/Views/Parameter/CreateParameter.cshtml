@@ -1,0 +1,101 @@
+﻿@model TargetSettingTool.UI.Models.Parameter.CreateParameterPageModel
+
+@{
+    ViewData["Title"] = "CreateParameter";
+}
+
+<style>
+    .hide {
+        display: none;
+    }
+
+    #parameterTypeSelect option:not(:first-child):not(.hide) {
+        background-color: green;
+    }
+</style>
+
+
+<div class='container-fulid m-3'>
+    <div class="row">
+        <div class='col-sm-8'>
+            <h3>Create Parameter</h3>
+        </div>
+        <div class='col-sm-4 text-right'>
+            <a class="btn btn-primary btn-sm" asp-action="GetAllParameters">Back to List</a>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<div class="container">
+    <div class="d-flex flex-row gap-3">
+        <div class="px-3 w-100">
+            <section class="row">
+                <div class="form-group mt-3">
+                    <label asp-for="StartDate" for="StartDate" class="control-label required">Start Date</label>
+                    <input asp-for="StartDate" id="StartDate" data-checkDate class="form-control" required />
+                    <span id="error-StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="EndDate" for="EndDate" class="control-label required">End Date</label>
+                    <input asp-for="EndDate" id="EndDate" data-checkDate class="form-control" required />
+                    <span id="error-EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="FinancialYear" class="control-label">Financial Year</label>
+                    <input id="FinancialYear" class="form-control" required readonly />
+                    <span id="error-FinancialYear" class="text-danger"></span>
+                </div>
+            </section>
+
+            <section>
+                <div>
+                    <form>
+                        <div class="form-group mt-3">
+                            <label class="control-label">Parameter Type</label>
+                            <select class="form-select" id="ParameterType" required>
+                                <option data-default-option value="">Select a option</option>
+                            </select>
+                            <span id="error-ParameterType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="control-label">Target Amount</label>
+                            <input type="number" min="1" class="form-control" id="TargetAmount" required />
+                            <span id="error-TargetAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="button" class="btn btn-primary" id="addParaBtn" disabled>Add</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div class="w-100">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Parameter Type</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="TargetList">
+
+                </tbody>
+
+            </table>
+
+            <div class="form-group mt-3">
+                <button type="button" class="btn btn-success" id="saveBtn">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+@{
+await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script src="~/js/Parameter/createParameter.js" defer></script>
+}

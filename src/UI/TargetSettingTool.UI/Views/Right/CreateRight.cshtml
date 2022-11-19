@@ -1,0 +1,52 @@
+﻿@model TargetSettingTool.UI.Models.Right.CreateRightVm
+
+@{
+    ViewData["Title"] = "CreateRight";
+}
+
+<div class='container-fulid m-3'>
+    <div class="row">
+        <div class='col-sm-8'><h3>Create right</h3></div>
+        <div class='col-sm-4' style="text-align: right;"> <a class="btn btn-primary btn-sm" asp-action="GetAllRights">Back to List</a></div>
+    </div>
+    <hr />
+</div>
+
+@if (TempData["Msg"] != null)
+{
+    <div id="alertBox" class="alert alert-@TempData["Type"]">
+        <strong>@TempData["Msg"]</strong>
+    </div>
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-3 shadow pL-5 pr-5 p-3 mb-5 rounded">
+            <form asp-action="CreateRight">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mt-3">
+                    <label asp-for="Name" class="control-label required"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                <label asp-for="LoggedInUser" class="control-label"></label>
+                <input asp-for="LoggedInUser" class="form-control" />
+                <span asp-validation-for="LoggedInUser" class="text-danger"></span>
+                </div>*@
+                <div class="form-group mt-3 text-center">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="./js/TempDataAlertMsg.js" defer></script>
+
+}

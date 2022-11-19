@@ -1,0 +1,137 @@
+﻿@model TargetSettingTool.UI.Models.UserVm
+
+@{
+    ViewData["Title"] = "CreateUser";
+}
+
+<div class='container-fulid m-3'>
+    <div class="row">
+        <div class='col-sm-8'><h3>Create User</h3></div>
+        <div class='col-sm-4' style="text-align: right;"> <a class="btn btn-primary btn-sm" asp-action="GetAllUsers">Back to List</a></div>
+    </div>
+    <hr />
+</div>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-@TempData["type"]" role="alert">
+        @TempData["msg"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="float: right;"></button>
+    </div>
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-3 shadow pL-5 pr-5 p-3 mb-5 rounded">
+            <form asp-action="CreateUser" class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mt-3" hidden>
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Name" class="control-label required"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Email" class="control-label required"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3" hidden>
+                    <label asp-for="EmployeeCode" class="control-label"></label>
+                    <input asp-for="EmployeeCode" class="form-control" />
+                    <span asp-validation-for="EmployeeCode" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="PhoneNumber" class="control-label required"></label>
+                    <input asp-for="PhoneNumber" class="form-control" onkeypress="return isNumber(event)" maxlength="10"/>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="RoleId" class="control-label required">Role</label>
+                    <select asp-for="RoleId" class="form-control" asp-items="ViewBag.Roles">
+                        <option value="">Select Role</option>
+                    </select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+                <div class="radio my-3 role mt-3" hidden>
+                    @*<span>Right</span>*@
+                    @foreach (var right in ViewBag.Rights)
+                    {
+                        <div class="form-check form-check-inline">
+                            <input asp-for="RightId" class="form-check-input" type="radio" name="RightId" id="@right.Id" value="@right.Id" />
+                            <label class="form-check-label required" for="@right.Id">@right.Name</label>
+                        </div>
+                    }
+                    <span asp-validation-for="RightId" class="text-danger" style="display:block"></span>
+                </div>
+                @*<div class="form-group role" hidden>
+                <label asp-for="RightId" class="control-label">Right</label>
+                @foreach (var right in  ViewBag.Rights) {
+                @Html.RadioButtonFor(m=>m.RightId, right.Id)
+                @right.Name
+                <br />
+                }
+                <br />
+                <span asp-validation-for="RightId" class="text-danger"></span>
+                </div>*@
+                <div class="form-group branchUser mt-3" hidden>
+                    <label asp-for="Branches" class="control-label required">Branches</label>
+                    <select asp-for="Branches" class="form-control" asp-items="ViewBag.Branches"></select>
+                    <span asp-validation-for="Branches" class="text-danger"></span>
+                </div>
+                <input asp-for="LoggedInUserId" class="form-control" type="hidden" />
+                <div class="form-group mt-3 text-center">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        $(document).ready(function () {
+            $("#RoleId").on('change', function () {
+                var role = $("#RoleId option:selected").text();
+                //console.log(role);
+                if (role != "Strategy Team" && role != "Admin" && role != "Select Role" && role != "Branch User") {
+                    $('.role').removeAttr('hidden');
+                    $('.form-check-input').prop('required', true);
+                    $('.branchUser').prop('hidden', true);
+                    $('#Branches').removeAttr('required');
+                    $('#Branches').val('');
+                }
+                else if (role == "Branch User") {
+                    $('.role').prop('hidden', true);
+                    $('.branchUser').removeAttr('hidden');
+                    $('.form-check-input').removeAttr('required');
+                    $('input[name=RightId]').prop('checked', false);
+                    $('#Branches').prop('required', true);
+                }
+                else {
+                    $('.role').prop('hidden', true);
+                    $('.branchUser').prop('hidden', true);
+                    $('.form-check-input').removeAttr('required');
+                    $('input[name=RightId]').prop('checked', false);
+                    $('#Branches').removeAttr('required');
+                    $('#Branches').val('');
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,52 @@
+@using TargetSettingTool.UI.Controllers
+
+<style>
+    #liveAlertBtn {
+        transform: scale(2);
+        font-weight: 200;
+        cursor: pointer;
+    }
+</style>
+@{
+    if (TempData["alert"] != null)
+    {
+        string classes = $"temp-alert alert d-flex justify-content-between no-print";
+        if ((TempAlertCode)TempData["alert"] == TempAlertCode.Ok)
+        {
+            classes += " alert-success";
+        }
+        else if ((TempAlertCode)TempData["alert"] == TempAlertCode.Error)
+        {
+            classes += " alert-danger";
+        }
+
+        <div class="@classes">
+            <span>@TempData["alertMessage"]</span>
+            <span class="liveAlertBtn">&times;</span>
+        </div>
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script>
+            console.log("Running from temp-alert")
+            const tempAlert = $(".temp-alert")
+            window.addEventListener("load", (event) => {
+                let timeoutId = setTimeout(() => {
+                    console.log("closing tempdata")
+                    tempAlert.slideUp(() => {
+                        tempAlert.remove()
+                    })
+                    clearTimeout(timeoutId)
+                }, 5000)
+            })
+            $(document).ready(() => {
+                $('.liveAlertBtn').on("click", (event) => {
+                    console.log("closing tempdata")
+                    tempAlert.slideUp(() => {
+                        tempAlert.remove()
+                    })
+                })
+            })
+        </script>
+    }
+
+}

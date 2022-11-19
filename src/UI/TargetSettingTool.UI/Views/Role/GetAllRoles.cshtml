@@ -1,0 +1,61 @@
+﻿@model IEnumerable<GetAllRolesVm>
+
+@{
+    ViewData["Title"] = "GetAllRoles";
+}
+<link rel="stylesheet" href="~/css/getAllPage.css">
+
+@Html.Partial("_TempAlert")
+
+<div class='container-fulid m-3'>
+    <div class="row">
+        <div class='col-sm-8'><h3>Roles</h3></div>
+        <div class='col-sm-4' style="text-align: right;"> <a class="btn btn-primary btn-sm" asp-action="CreateRole">Create New Role</a></div>
+    </div>
+    <hr />
+</div>
+<div class="container">
+<table data-getAllTable class="col-md-10 col-md-offset2 table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Sr.No.</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="no-sort text-center">Actions</th>
+        </tr>
+
+    <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var item = Model.ElementAt(i);
+            <tr>
+                <td>@($"{i + 1}")</td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="text-center">
+                        @{
+                            string[] Roles = { "Vertical", "Strategy Team", "Branch User", "Zone", "Region", "Admin" };
+                            bool IsExists = Array.Exists(Roles, element => element == item.Name);
+
+                        }
+
+                        @if (!IsExists)
+                        {
+                            
+                            <a asp-action="UpdateRole" class="btn btn-outline btn--edit" asp-route-id="@item.Id"><i
+                            class="fa-solid fa-pencil"></i></a>
+                            <a  class="btn btn-outline btn--delete" Onclick="DeleteRole('@item.Id.ToString()')"><i class="fa-solid fa-trash"></i></a>
+
+                        }
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>
+</div>
+@section Scripts{
+<script src="~/js/DeleteAlert.js" defer></script>
+<script src="~/js/datatableInit.js" defer></script>
+}

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Target Setting Tool</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/datatables.net-dt/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TargetSettingTool.UI.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+        .loginpg.wlc{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .offcanvas-backdrop, .offcanvas-backdrop.show{
+            opacity: 0;
+            z-index: inherit;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button{
+            padding: 2px 4px 0;
+            text-align: center;
+            line-height: normal;
+            border-radius: 0;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current{
+            background: #0d6efd !important;
+            color: #fff !important;
+        }
+        table.dataTable tbody td{padding:5px 20px;}
+    </style>
+</head>
+
+
+<body>
+    <header>
+        
+
+    </header>
+
+
+
+
+    <main role="main" class="pb-3">
+       
+        <section class="main-content">
+            @RenderBody()
+        </section>
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Target Setting Tool - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
+    <script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @section Scripts {
+    }
+        @await RenderSectionAsync("Scripts", required: false)
+
+    </body>
+
+    </html>

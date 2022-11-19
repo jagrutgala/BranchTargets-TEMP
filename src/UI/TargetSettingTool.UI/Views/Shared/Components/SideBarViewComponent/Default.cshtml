@@ -1,0 +1,257 @@
+﻿@model IEnumerable<TargetSettingTool.UI.Models.SideBar.SideBar>
+
+@{
+    Console.WriteLine(Model);
+    string role = ViewBag.Name; 
+    
+}
+
+<div>
+    <div class="offcanvas offcanvas-start off-canvas-sidebar" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            @{
+                switch (role)
+                {
+                    case "Admin":
+                        List<string> parentMenus = new List<string>() { "Admin", "Master" };
+                        foreach (SideBar parent in Model)
+                        {
+                            if (parentMenus.Contains(parent.Menu.Name))
+                            {
+                                if (parent.SubMenus.Count() == 0)
+                                {
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mx-auto"><a href="@parent.Menu.Url" class="link-dark text-white rounded px-3 text-decoration-none">@parent.Menu.Name</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    string collapseId = $"{parent.Menu.Name}-collapse";
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mb-1">
+                                            <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse"
+                                data-bs-target="#@collapseId" aria-expanded="true">
+                                                @parent.Menu.Name
+                                            </button>
+                                            <div class="collapse" id="@collapseId">
+
+                                                @foreach (Menu child in parent.SubMenus)
+                                                {
+                                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-4 large">
+                                                        <li class="mx-auto"><a href="@child.Url" class="link-dark text-white rounded px-3 text-decoration-none">@child.Name</a></li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                        }
+                        break;
+                    case "Strategy Team":
+                        parentMenus = new List<string>() { "Master", "Dashboard", "Assign Targets" };
+                        foreach (SideBar parent in Model)
+                        {
+                            if (parentMenus.Contains(parent.Menu.Name))
+                            {
+                                if (parent.SubMenus.Count()==0)
+                                {
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mx-auto"><a href="@parent.Menu.Url" class="link-dark text-white rounded px-3 text-decoration-none">@parent.Menu.Name</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    string collapseId = $"{parent.Menu.Name}-collapse";
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mb-1">
+                                            <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId" aria-expanded="true">
+                                                @parent.Menu.Name
+                                            </button>
+                                            <div class="collapse" id="@collapseId">
+
+                                                @foreach (Menu child in parent.SubMenus)
+                                                {
+                                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-4 large">
+                                                        <li class="mx-auto"><a href="@child.Url" class="link-dark text-white rounded px-3 text-decoration-none">@child.Name</a></li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                        }
+                        break;
+                    case "Branch User":
+                        parentMenus = new List<string>() { "Dashboard" };
+                        foreach (SideBar parent in Model)
+                        {
+                            if (parentMenus.Contains(parent.Menu.Name))
+                            {
+                                if (parent.SubMenus.Count() == 0)
+                                {
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mx-auto"><a href="@parent.Menu.Url" class="link-dark text-white rounded px-3 text-decoration-none">@parent.Menu.Name</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    string collapseId = $"{parent.Menu.Name}-collapse";
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mb-1">
+                                            <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse"
+                                data-bs-target="#@collapseId" aria-expanded="true">
+                                                @parent.Menu.Name
+                                            </button>
+                                            <div class="collapse" id="@collapseId">
+
+                                                @foreach (Menu child in parent.SubMenus)
+                                                {
+                                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-4 large">
+                                                        <li class="mx-auto"><a href="@child.Url" class="link-dark text-white rounded px-3 text-decoration-none">@child.Name</a></li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                        }
+                        break;
+                    case "Vertical":
+                        parentMenus = new List<string>() { "Dashboard", "Assign Targets" };
+                        foreach (SideBar parent in Model)
+                        {
+                            if (parentMenus.Contains(parent.Menu.Name))
+                            {
+                                if (parent.SubMenus.Count() == 0)
+                                {
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mx-auto"><a href="@parent.Menu.Url" class="link-dark text-white rounded px-3 text-decoration-none">@parent.Menu.Name</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    string collapseId = $"{parent.Menu.Name}-collapse";
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mb-1">
+                                            <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse"
+                                data-bs-target="#@collapseId" aria-expanded="true">
+                                                @parent.Menu.Name
+                                            </button>
+                                            <div class="collapse" id="@collapseId">
+
+                                                @foreach (Menu child in parent.SubMenus)
+                                                {
+                                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-4 large">
+                                                        <li class="mx-auto"><a href="@child.Url" class="link-dark text-white rounded px-3 text-decoration-none">@child.Name</a></li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                        }
+                        break;
+                    case "Zone":
+                        parentMenus = new List<string>() { "Dashboard", "Assign Targets" };
+                        foreach (SideBar parent in Model)
+                        {
+                            if (parentMenus.Contains(parent.Menu.Name))
+                            {
+                                if (parent.SubMenus.Count() == 0)
+                                {
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mx-auto"><a href="@parent.Menu.Url" class="link-dark text-white rounded px-3 text-decoration-none">@parent.Menu.Name</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    string collapseId = $"{parent.Menu.Name}-collapse";
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mb-1">
+                                            <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse"
+                                data-bs-target="#@collapseId" aria-expanded="true">
+                                                @parent.Menu.Name
+                                            </button>
+                                            <div class="collapse" id="@collapseId">
+
+                                                @foreach (Menu child in parent.SubMenus)
+                                                {
+                                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-4 large">
+                                                        <li class="mx-auto"><a href="@child.Url" class="link-dark text-white rounded px-3 text-decoration-none">@child.Name</a></li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                        }
+                        break;
+                    case "Region":
+                        parentMenus = new List<string>() { "Dashboard", "Assign Targets" };
+                        foreach (SideBar parent in Model)
+                        {
+                            if (parentMenus.Contains(parent.Menu.Name))
+                            {
+                                if (parent.SubMenus.Count() == 0)
+                                {
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mx-auto"><a href="@parent.Menu.Url" class="link-dark text-white rounded px-3 text-decoration-none">@parent.Menu.Name</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    string collapseId = $"{parent.Menu.Name}-collapse";
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="mb-1">
+                                            <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse"
+                                data-bs-target="#@collapseId" aria-expanded="true">
+                                                @parent.Menu.Name
+                                            </button>
+                                            <div class="collapse" id="@collapseId">
+
+                                                @foreach (Menu child in parent.SubMenus)
+                                                {
+                                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-4 large">
+                                                        <li class="mx-auto"><a href="@child.Url" class="link-dark text-white rounded px-3 text-decoration-none">@child.Name</a></li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                @*string collapseId = $"{parent.Menu.Name}-collapse";
+                    <ul class="list-unstyled ps-0">
+                    <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                    data-bs-target="#@collapseId" aria-expanded="true">
+                    @parent.Menu.Name
+                    </button>
+                    <div class="collapse" id="@collapseId">
+
+                    @foreach (Menu child in parent.SubMenus)
+                    {
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-4 large">
+                    <li class="mx-auto"><a href="@child.Url" class="link-dark rounded px-3">@child.Name</a></li>
+                    </ul>
+                    }
+                    </div>
+                    </li>
+                    </ul>*@
+            }
+        </div>
+    </div>

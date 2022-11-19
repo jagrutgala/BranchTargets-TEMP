@@ -1,0 +1,49 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin-bottom: 60px;
+}
+
+main {
+    /* display: flex; */
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding-inline: 1em;
+}
+
+.sidebar {
+}
+
+.open-sidebar-btn {
+
+}
+
+.off-canvas-sidebar{
+    width: 280px;
+}
+
+.offcanvas-body {
+    background-color: #8a2be2;
+}
+
+.required::after{
+    content: '*';
+    color: red;
+}

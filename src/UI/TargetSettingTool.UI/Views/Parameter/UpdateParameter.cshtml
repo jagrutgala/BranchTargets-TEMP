@@ -1,0 +1,56 @@
+﻿@model TargetSettingTool.UI.Models.Parameter.UpdateParameterVm
+
+@{
+    ViewData["Title"] = "UpdateParameter";
+}
+
+<div class='container-fulid m-3'>
+    <div class="row">
+        <div class='col-sm-8'><h3>Edit Branch</h3></div>
+        <div class='col-sm-4' style="text-align: right;"><a class="btn btn-primary btn-sm" asp-action="GetAllParameters">Back to List</a></div>
+    </div>
+    <hr />
+</div>
+@Html.Partial("_TempAlert")
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-3 shadow pL-5 pr-5 p-3 mb-5 rounded">
+        <form method="post" asp-action="UpdateParameter">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mt-3">
+                <label asp-for="ParameterTypeId" class="control-label">Parameter Type</label>
+                <input type="text" class="form-control" asp-for="ParameterTypeId" readonly>
+                <span asp-validation-for="ParameterTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="StartDate" class="control-label">Start Date</label>
+                <input type="text" class="form-control" asp-for="StartDate" readonly>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="EndDate" class="control-label">End Date</label>
+                <input type="text" class="form-control" asp-for="EndDate" readonly>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="FinancialYear" class="control-label">Financial Year</label>
+                <input type="text" class="form-control" asp-for="FinancialYear" readonly>
+                <span asp-validation-for="FinancialYear" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="TargetAmount" class="control-label required"></label>
+                <input type="number" asp-for="TargetAmount" class="form-control" />
+                <span asp-validation-for="TargetAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3 text-center">
+                <button type="submit" asp-action="UpdateParameter" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,9 @@
+.btn--edit:hover,
+.btn--edit:focus {
+  color: var(--bs-warning);
+}
+
+.btn--delete:hover,
+.btn--delete:focus {
+  color: var(--bs-danger);
+}

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BranchVm>
+
+@{
+    ViewData["Title"] = "GetAllBranches";
+}
+
+<link rel="stylesheet" href="~/css/getAllPage.css">
+
+@Html.Partial("_TempAlert")
+<div class='container-fulid m-3'>
+    <div class="row">
+        <div class='col-sm-8'><h3>Branches</h3></div>
+        <div class='col-sm-4' style="text-align: right;"> <a class="btn btn-primary btn-sm" asp-action="AddBranch">Create New Branch</a></div>
+    </div>
+    <hr />
+</div>
+
+<h1>Branches</h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="AddBranch"><i class="fa-solid fa-plus"></i>&nbsp;Create Branch</a>
+</p>
+<table data-getAllTable class="table">
+    <thead>
+        <tr>
+            <th>Sr. No.</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th class="no-sort">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var item = Model.ElementAt(i);
+                <tr>
+                    <td>@($"{i + 1}")</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Region.Name)
+                    </td>
+                    <td class='text-center'>
+                        <a class="btn btn-outline btn--edit" asp-action="EditBranch" asp-route-id="@item.Id">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                        <span type="button" class="btn btn-outline btn--delete" onclick="DeleteBranch('@item.Id.ToString()')">
+                            <i class="fa-solid fa-trash"></i>
+                        </span>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+<script src="~/js/datatableInit.js" defer></script>
+<script src="~/js/DeleteAlert.js" defer></script>
+}

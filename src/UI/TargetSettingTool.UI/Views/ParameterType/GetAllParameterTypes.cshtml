@@ -1,0 +1,83 @@
+﻿@model IEnumerable<TargetSettingTool.UI.Models.ParameterType.ParameterTypeVm>
+
+@{
+    ViewData["Title"] = "GetAllParameterTypes";
+}
+<link rel="stylesheet" href="~/css/getAllPage.css">
+
+@Html.Partial("_TempAlert")
+
+<div class='container-fulid m-3'>
+    <div class="row">
+        <div class='col-sm-8'><h3>ParameterTypes</h3></div>
+        <div class='col-sm-4' style="text-align: right;"> <a class="btn btn-primary btn-sm" asp-action="CreateParameterType">Create New ParameterType</a></div>
+    </div>
+    <hr />
+</div>
+<div class="container">
+    <table data-getAllTable class="col-md-10 col-md-offset2 table table-sm table-striped table-hover">
+
+        <thead>
+            <tr>
+                <th>sr. No.</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th class="no-sort text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var item = Model.ElementAt(i);
+                <tr>
+                    <td>@($"{i + 1}")</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="UpdateParameterType" class="btn btn-outline btn--edit" asp-route-id="@item.Id">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                        <button class="btn btn-outline btn--delete" onclick="DeleteApi('@item.Id', '@item.Name')"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+
+    <script>
+        const DeleteApi = (id, name) => {
+            fetch(`/ParameterType/IsParameterTypeUsed?name=${name}`, {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                //body: JSON.stringify(),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data == false) {
+                        DeleteParameterType(id);
+                    }
+                    else {
+                        Swal.fire(
+                            'Alert!',
+                            "You cannot delete this parameter type as it is assigned to some parameter.",
+                            'info'
+                        );
+                    }
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+
+    <script src="~/js/DeleteAlert.js" defer></script>
+    <script src="~/js/datatableInit.js" defer></script>
+
+}
